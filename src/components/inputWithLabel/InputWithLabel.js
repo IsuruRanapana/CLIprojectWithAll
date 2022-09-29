@@ -6,16 +6,22 @@ export default function InputWithLabel({
   onChange,
   value,
   secureTextEntry = false,
+  error,
+  onBlur,
 }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>{labelText}</Text>
+      <View style={styles.labelContainer}>
+        <Text style={styles.label}>{labelText}</Text>
+        {error ? <Text style={styles.errorText}>{error}</Text> : null}
+      </View>
       <TextInput
         style={styles.textInput}
         keyboardType={keyboardType}
         onChangeText={onChange}
         value={value}
         secureTextEntry={secureTextEntry}
+        onBlur={onBlur}
       />
     </View>
   );
@@ -23,7 +29,6 @@ export default function InputWithLabel({
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'flex-start',
     justifyContent: 'space-between',
   },
   label: {
@@ -36,5 +41,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingHorizontal: 10,
     borderRadius: 10,
+  },
+  labelContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 5,
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 16,
   },
 });
